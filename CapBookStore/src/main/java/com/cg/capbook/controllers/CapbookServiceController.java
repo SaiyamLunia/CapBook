@@ -1,4 +1,8 @@
 package com.cg.capbook.controllers;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,10 +16,13 @@ import com.cg.capbook.beans.Account;
 import com.cg.capbook.services.CapBookService;
 
 @Controller
-public class CapbookServiceController {
+public class CapbookServiceController extends HttpServlet{
 	
 	@Autowired
 	CapBookService capBookServices;
+	HttpServletRequest request;
+	HttpServletResponse response;
+	HttpSession session;
 	
 	@RequestMapping("/registerAccount")
 	public ModelAndView registerAssociate(@Valid@ModelAttribute Account account, BindingResult result) {
@@ -25,13 +32,20 @@ public class CapbookServiceController {
 	}
 	
 	@RequestMapping("/loginAccount")
-	public ModelAndView loginAccount(@RequestParam String emailID, String password) {
+	public ModelAndView loginAccount(@RequestParam String emailID, String password){
 		password=capBookServices.encryptPassword(password);
 		Account account=capBookServices.findAccountDetails(emailID);
-		System.out.println("pass-0-"+password);
-		if(password.equals(account.getPassword()))
-			return new ModelAndView("loginHomePage","account",account);
-		return null;
-		
+		if(password.equals(account.getPassword())) {
+//			session=request.getSession();  
+//		    session.setAttribute("email",account.getEmailID());
+			return new ModelAndView("profilePage","account",account);
+		}
+			return null;
+	}
+	
+	@RequestMapping("/logoutAccount")
+	public ModelAndView logoutAccount() {
+		session.invalidate();
+		return new ModelAndView("loginPage");
 	}
 }

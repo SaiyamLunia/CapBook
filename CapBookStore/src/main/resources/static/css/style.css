@@ -21,7 +21,7 @@ body{
 	background:#3d5b99;
 	top:0;
 	left:0;
-	color:white;
+/* 	color:white; */
 	z-index:7;
 	font-family:verdana;
 	
@@ -116,7 +116,7 @@ body{
 	
 }
 #namebox{
-	width:200px;
+/* 	width:200px; */
 	height:40px;
 	border-radius:5px 5px 5px 5px;
 	background:white;
@@ -128,7 +128,7 @@ body{
 	border-color: gray;
 }
 #mailbox{
-	width:408px;
+	width:150px;
 	height:40px;
 	border-radius:5px 5px 5px 5px;
 	background:white;
