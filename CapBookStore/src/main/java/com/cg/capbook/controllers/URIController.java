@@ -4,25 +4,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.UserProfile;
 
 @Controller
 public class URIController {
-	
-	@RequestMapping(value = {"/", "index"})
-	public String getIndexPage() {
-		return "indexPage";
-	}
-	@RequestMapping("/registration")
+
+	private UserProfile user;
+
+	@RequestMapping("/")
 	public String getRegistrationPage() {
-		return "registrationPage";
+		return "registration";
 	}
-	@RequestMapping("/login")
-	public String getLoginPage() {
-		return "loginPage";
+
+	@RequestMapping("/forgotPasswordPage")
+	public String getForgotPasswordPage() {
+		return "forgotPasswordPage";
 	}
-	@ModelAttribute
-	public Account getAccount() {
-		return new Account();
+	@ModelAttribute("user")
+	public UserProfile getUser() {
+		user= new UserProfile();
+		return user;
 	}
 }

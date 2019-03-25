@@ -1,31 +1,31 @@
 package com.cg.capbook.exceptions;
 
-public class AccountDetailsNotFoundException extends RuntimeException{
+public class WrongSecurityAnswerException extends Exception {
 
-	public AccountDetailsNotFoundException() {
+	public WrongSecurityAnswerException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDetailsNotFoundException(String message, Throwable cause, boolean enableSuppression,
+	public WrongSecurityAnswerException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDetailsNotFoundException(String message, Throwable cause) {
+	public WrongSecurityAnswerException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDetailsNotFoundException(String message) {
+	public WrongSecurityAnswerException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDetailsNotFoundException(Throwable cause) {
+	public WrongSecurityAnswerException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 }
