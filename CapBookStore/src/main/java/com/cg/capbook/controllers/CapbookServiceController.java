@@ -1,10 +1,13 @@
 package com.cg.capbook.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.cg.capbook.beans.UserProfile;
 import com.cg.capbook.exceptions.InvalidEmailException;
@@ -13,6 +16,7 @@ import com.cg.capbook.exceptions.WrongSecurityAnswerException;
 import com.cg.capbook.services.UserProfileService;
 
 @Controller
+@SessionAttributes("user")
 public class CapbookServiceController {
 	private UserProfile user;
 	@Autowired
@@ -21,13 +25,13 @@ public class CapbookServiceController {
 	@RequestMapping("/registrationForm")
 	public ModelAndView registerUser(@ModelAttribute UserProfile user) {
 		user=userProfileService.registerUser(user);
-		return new ModelAndView("registrationSuccessPage","user",user);
+		return new ModelAndView("profilePage","user",user);
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView loginUser(@RequestParam String emailId, @RequestParam String password) throws InvalidEmailException, InvalidPasswordException {
+	public ModelAndView loginUser(@RequestParam String emailId, @RequestParam String password, HttpSession session) throws InvalidEmailException, InvalidPasswordException {
 		user=userProfileService.loginUser(emailId, password);
-		return new ModelAndView("registrationSuccessPage","user",user);
+		return new ModelAndView("profilePage","user",user);
 	}
 	
 	@RequestMapping("/forgotPasswordSecurity")

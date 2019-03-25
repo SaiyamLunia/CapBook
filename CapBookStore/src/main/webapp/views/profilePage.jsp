@@ -224,11 +224,21 @@
 		<div id="profilearea2" class="header1">|</div>
 
 		<div id="setting" class="header1">
-			<img src="resources/images/set.png" height="30" />
+<!-- 			<div class="dropdown"> -->
+<!-- 				<img src="resources/images/set.png" height="30" class=" dropdown-toggle" data-toggle="dropdown"/> -->
+<!-- 				<ul class="dropdown-menu"> -->
+<!-- 					<li><a href="profileEdit">Edit Profile</a></li> -->
+<!-- 					<li><a href="#">Change Password</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+			<img src="resources/images/set.png" height="30">
+			<select>
+				<option>Edit Profile</option>
+			</select>
 		</div>
 
 		<div id="logout" class="header1">
-			<img src="resources/images/lo.png" height="30" />
+			<a href="/"><img src="resources/images/lo.png" height="30" /> </a>
 		</div>
 
 	</div>
@@ -241,10 +251,11 @@
 	</div>
 	<div class="profilepic"></div>
 	<div class="profilepicx">
-		<img src="resources/images/pppp.jpg" height="140px" />
+		<input type="file" name="image" accept=".jpg,.png,.jpeg"> <img
+			src="" height="140px" />
 	</div>
 	<div class="username">
-		Jadavananda <br>bordoloi
+		<font color="black"> ${user.firstName } <br>${user.lastName }</font>
 	</div>
 
 	<div class="box11">Timeline</div>
@@ -317,7 +328,8 @@
 
 		<div id="column-1" class="postp">
 			update status | add photos/videos | create photo album
-			<hr><br><br><br><br><br><br>
+			<hr>
+			<br> <br> <br> <br> <br> <br>
 			<hr>
 		</div>
 		<div id="postpos" class="postp">
@@ -331,8 +343,7 @@
 	</div>
 	<div class="post1px"></div>
 	<div class="post1p">
-		<img src="resources/images/prof.png" height="30" /><br>
-		<br>
+		<img src="resources/images/prof.png" height="30" /><br> <br>
 		<img src="resources/images/wall.jpg" height="411" width="580" /><br>
 		<br>
 		<p6>Like Comment Share</p6>
@@ -361,8 +372,17 @@
 			<input type="textarea" placeholder="comment" id="commentbox" />
 		</div>
 	</div>
+
+	<div class="aboutpad">
+
+		Name: ${user.firstName }${user.lastName }<br> Address:
+		${user.address.city }<br> Address: ${user.address.state}<br>
+		Address: ${user.address.country }<br> Address:
+		${user.address.zipCode }<br> Date of Birth: ${user.dob } <br>
+		<a href="profileEditPage.jsp"> hjgfujhgjh</a> <input type="button"
+			value="click">
+
 	</div>
-	<div class="aboutpad">about</div>
 	<div class="aboutpadx"></div>
 	<div class="sidebarp">
 		<p7>Sponsored</p7>
