@@ -44,6 +44,7 @@ public class CapbookServiceController {
 		user=userProfileService.getUserDetails(emailId);
 		String answer=user.getSecurityAnswer();
 		if(answer.equals(securityAnswer))
+			
 		{
 			String password=user.getPassword();
 			return new ModelAndView("forgotPasswordPage","password",password);
