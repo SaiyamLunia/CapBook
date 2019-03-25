@@ -9,4 +9,6 @@ public interface UserProfileService {
 	public UserProfile loginUser(String emailId,String password)throws InvalidEmailException,InvalidPasswordException;
 	//public UserProfile forgotPassword(String emailId,String securityQues,String securityAnswer)throws InvalidEmailException;
 	public UserProfile getUserDetails(String emailId)throws InvalidEmailException;
+	public UserProfile editUser(UserProfile user,String firstName,String lastName,String dob,String city,String state,String country,int zipCode)throws InvalidEmailException;
+	public String decryptPassword(String password);
 }

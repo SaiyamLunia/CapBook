@@ -43,15 +43,37 @@ public class UserProfileServiceImpl implements UserProfileService{
 	@Override
 	public UserProfile getUserDetails(String emailId) throws InvalidEmailException {
 	UserProfile user=userProfileDao.findById(emailId).orElseThrow(()->new InvalidEmailException("EmailId is Invalid"));
-	String passwordDecrypt=user.getPassword();
-	String password="";
-	int i=0;
-	while(i<passwordDecrypt.length())
-	{
-		password+=""+(char)(passwordDecrypt.charAt(i)-2);
-		i=i+2;
-	}
-	user.setPassword(password);
 	return user ;
+	}
+	@Override
+	public UserProfile editUser(UserProfile user,String firstName,String lastName,String dob,String city,String state,String country,int zipCode) throws InvalidEmailException {
+		user=getUserDetails(user.getEmailId());
+		if(!firstName.equals(""))
+			user.setFirstName(firstName);
+		if(!lastName.equals(""))
+			user.setLastName(lastName);
+		if(!dob.equals(""))
+			user.setDob(dob);
+		if(!city.equals(""))
+			user.getAddress().setCity(city);
+		if(!state.equals(""))
+			user.getAddress().setState(state);
+		if(!country.equals(""))
+			user.getAddress().setCountry(country);
+		if(zipCode!=0)
+			user.getAddress().setZipCode(zipCode);
+		return userProfileDao.save(user);
+	}
+	@Override
+	public String decryptPassword(String password) {
+		String passwordDecrypt=password;
+		String password1="";
+		int i=0;
+		while(i<passwordDecrypt.length())
+		{
+			password1+=""+(char)(passwordDecrypt.charAt(i)-2);
+			i=i+2;
+		}
+		return password1;
 	}
 }
