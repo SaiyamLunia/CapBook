@@ -14,6 +14,7 @@ public class Image {
 	private String albumName;
 	@ManyToOne
 	private UserProfile user;
+<<<<<<< HEAD
 	public Image(String imageUrl, String albumName, UserProfile user) {
 		super();
 		this.imageUrl = imageUrl;
@@ -22,4 +23,6 @@ public class Image {
 	}
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/SaiyamLunia/CapBookRemoteRepoTeam2.git
 }

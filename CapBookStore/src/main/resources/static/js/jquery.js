@@ -10343,6 +10343,7 @@ if ( typeof noGlobal === strundefined ) {
 
 return jQuery;
 
+<<<<<<< HEAD
 }));
 
 /**
@@ -11069,3 +11070,6 @@ $(function() {
 
     
 });
+=======
+}));
+>>>>>>> branch 'master' of https://github.com/SaiyamLunia/CapBookRemoteRepoTeam2.git
