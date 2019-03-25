@@ -37,6 +37,7 @@ public class CapbookServiceController {
 	@RequestMapping("/forgotPasswordSecurity")
 	public ModelAndView forgotPasswordSecurityQues(@RequestParam String emailId) throws InvalidEmailException {
 		user=userProfileService.getUserDetails(emailId);
+		
 		return new ModelAndView("forgotPasswordPage","user",user);
 	}
 	@RequestMapping("/forgotPassword")
