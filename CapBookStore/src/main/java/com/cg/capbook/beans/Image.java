@@ -14,4 +14,12 @@ public class Image {
 	private String albumName;
 	@ManyToOne
 	private UserProfile user;
+	public Image(String imageUrl, String albumName, UserProfile user) {
+		super();
+		this.imageUrl = imageUrl;
+		this.albumName = albumName;
+		this.user = user;
+	}
+	
+	
 }

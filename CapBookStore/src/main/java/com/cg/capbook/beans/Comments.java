@@ -14,6 +14,5 @@ public class Comments {
 	private String commentMessage;
 	@ManyToOne
 	private Status post;
-	
-	
+		
 }
