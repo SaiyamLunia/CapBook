@@ -197,7 +197,7 @@
 	</style>
 	<body>
 		<div class="fb-header-base">
-				<form action="login" method="get">
+				<form action="login" method="post">
 		<div class="fb-header">
 			<div id="img1" class="fb-header"><img src="cbLogo.jpg" /></div>
 			<div id="form1" class="fb-header">

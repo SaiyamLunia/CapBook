@@ -3,25 +3,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="resources/css/forgotpass.css">
 <meta charset="ISO-8859-1">
 <title>CapBook</title>
 </head>
 <body>
-	<div>
-		<form action="forgotPasswordSecurity" method="post">
-			EmailID: <input type="email" name="emailId"> 
-			<input	type="submit" name="submit">
-		</form>
-	</div>
-	<div>
-		<form action="forgotPassword" method="post">
-		<input type="hidden" name="emailId" value="${requestScope.user.emailId}" readonly="readonly"><br>
-			Security Question:  <input type="text" value="${requestScope.user.securityQues}" readonly="readonly"><br>   
-			Security Answer :<input type="text" name="securityAnswer" placeholder="Enter Answer"><br>
-			<input	type="submit" name="submit" value="Verify"><br>
-		</form>
-	</div>
-	
-	<div>Your Passowrd :<input type="text" value="${requestScope.password}" readonly="readonly"></div>
+<div class="login-page">
+ <div class="form">
+  <form class="login-form" action="forgotPasswordSecurity" method="post" >
+   <p><strong>Enter email id</strong></p><input type="text" placeholder="Email id" name="emailId"/>
+   	 <font color="red"><button	type="submit" name="submit" >Submit</button></font>
+   	</form>
+   <form class="login-form" action="forgotPassword" method="post" >
+
+	<input type="hidden" name="emailId" value="${requestScope.user.emailId}" readonly="readonly"><br>
+			<p><strong>Security Question:</strong></p> <input type="text" value="${requestScope.user.securityQues}" readonly="readonly"><br>
+  <p><strong>Enter Security Answer</strong></p><input type="text" placeholder="Security Answer" name="securityAnswer"/>
+  	<button	type="submit" name="submit" >Verify </button> 
+  
+</form>
+   <p><strong>Your Password :</strong><input type="text" value="${requestScope.password}" readonly="readonly">
+   <a href="/">Login</a>
+ </div>
+</div>
 </body>
 </html>

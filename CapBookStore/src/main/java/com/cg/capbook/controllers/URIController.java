@@ -22,11 +22,11 @@ public class URIController {
 	public String getForgotPasswordPage() {
 		return "forgotPasswordPage";
 	}
-	@RequestMapping("/profileEdit")
+	@RequestMapping("/profilePage")
 	public String getProfilePage() {
 		return "profilePage";
 	}
-	@RequestMapping("/profilePage")
+	@RequestMapping("/profileEditPage")
 	public String getProfileEditPage() {
 		return "profileEditPage";
 	}

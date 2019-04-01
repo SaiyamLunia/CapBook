@@ -14,13 +14,13 @@ public class CapbookMvcConfig implements WebMvcConfigurer{
 	@Override
 	public Validator getValidator() {
 		return new LocalValidatorFactoryBean();
-	}
-	
+	}	    
 	    @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/resources/**")
-	            .addResourceLocations("classpath:/static/");
+	    public void addResourceHandlers(ResourceHandlerRegistry registry){ 
+	            registry.addResourceHandler("/resources/**")
+	                 .addResourceLocations("classpath:/static/");
 	    }
+	    
 	@Bean
 	public InternalResourceViewResolver getInternalResourceViewResolver() {
 		InternalResourceViewResolver ref = new InternalResourceViewResolver();

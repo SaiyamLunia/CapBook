@@ -1,7 +1,5 @@
 package com.cg.capbook.beans;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +14,21 @@ public class UserProfile {
 	private String firstName;
 	private String lastName;
 	private String gender;
+	private String profilePic;
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+
 	private String dob;
 	private String securityQues;
 	private String securityAnswer;
 	@Embedded
 	private Address address;
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
 	@MapKey
 	private List<Image>images;
 	@OneToMany(mappedBy="user")
@@ -50,6 +57,21 @@ public class UserProfile {
 		this.address = address;
 	}
 	
+
+	public UserProfile(String emailId, String password, String firstName, String lastName, String gender, String dob,
+			String securityQues, String securityAnswer, Address address, List<Image> images) {
+		super();
+		this.emailId = emailId;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dob = dob;
+		this.securityQues = securityQues;
+		this.securityAnswer = securityAnswer;
+		this.address = address;
+		this.images = images;
+	}
 
 	public UserProfile(String emailId, String password, String firstName, String lastName, String gender, String dob,
 			String securityQues, String securityAnswer, Address address) {
@@ -136,6 +158,15 @@ public class UserProfile {
 
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
+	}
+	
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	@Override
