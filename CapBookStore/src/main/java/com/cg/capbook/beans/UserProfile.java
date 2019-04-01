@@ -1,5 +1,7 @@
 package com.cg.capbook.beans;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class UserProfile {
 	@MapKey
 	private List<Chat>chats;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	@MapKey
 	private List<Status>posts;
 	
@@ -142,6 +144,14 @@ public class UserProfile {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+	public List<Status> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Status> posts) {
+		this.posts = posts;
 	}
 
 	@Override

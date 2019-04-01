@@ -72,7 +72,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">ZipCode:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" name="zipCode">
+              <input class="form-control" type="number" value="0" name="zipCode">
             </div>
           </div>
           <div class="form-group">

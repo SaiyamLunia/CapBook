@@ -16,24 +16,30 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.capbook.beans.Image;
+import com.cg.capbook.beans.Status;
 import com.cg.capbook.beans.UserProfile;
 import com.cg.capbook.exceptions.InvalidEmailException;
 import com.cg.capbook.exceptions.InvalidPasswordException;
 import com.cg.capbook.exceptions.WrongSecurityAnswerException;
 import com.cg.capbook.services.ImageService;
 import com.cg.capbook.services.SearchService;
+import com.cg.capbook.services.StatusService;
 import com.cg.capbook.services.UserProfileService;
 
 @Controller
 @SessionAttributes("user")
 public class CapbookServiceController {
 	private UserProfile user;
+	private Status status;
 	@Autowired
 	private UserProfileService userProfileService;
 	@Autowired
 	private SearchService searchService;
 	@Autowired
 	private ImageService imageService;
+	@Autowired
+	private StatusService statusService;
+	
 	@RequestMapping("/registrationForm")
 	public ModelAndView registerUser(@ModelAttribute UserProfile user) {
 		user=userProfileService.registerUser(user);
@@ -78,9 +84,43 @@ public class CapbookServiceController {
 		user=userProfileService.editUser(user,firstName,lastName,dob,city,state,country,zipCode);
 		return new ModelAndView("profilePage","user",user);
 	}
-//	@RequestMapping("/changePassword")
-//	public ModelAndView changePassword(@RequestParam String password,@RequestParam String newpassword,@RequestParam String 	confirmNewPassword) throws InvalidPasswordException {
-//		String answer=
-//		return new ModelAndView("forgotPasswordPage","user",user);
-//	}
+	@RequestMapping("/changePassword")
+	public ModelAndView changePassword(@RequestParam String password,@RequestParam String newPassword,@RequestParam String 	confirmNewPassword,@SessionAttribute("user") UserProfile user) throws InvalidPasswordException {
+		System.out.println("******************************");
+		System.out.println(user.getPassword());
+		String answer=userProfileService.decryptPassword(user.getPassword());
+		System.out.println("\n\n"+answer);
+		if(answer.equals(password)) {
+			if(userProfileService.decryptPassword(newPassword).equals(userProfileService.decryptPassword(confirmNewPassword))) {
+//				user.setPassword(newPassword);
+				userProfileService.update(user,newPassword);
+				return new ModelAndView("profilePage");
+			}
+		}
+		else {
+			return new ModelAndView("forgotPasswordPage","user",user);
+		}
+		return null;
+	}
+	@RequestMapping("/uploadStatus")
+	public ModelAndView uploadStatus(@RequestParam String postBody, @SessionAttribute("user") UserProfile user) throws InvalidEmailException {
+		Status status=new Status();
+		status.setUser(user);
+		status.setPostBody(postBody);
+		status=statusService.saveStatus(status,user);
+		List<Status> userStatus=user.getPosts();
+		userStatus.add(status);
+		user.setPosts(userStatus);		
+		return new ModelAndView("profilePage","user",user);
+	}
 }
+
+
+
+
+
+
+
+
+
+

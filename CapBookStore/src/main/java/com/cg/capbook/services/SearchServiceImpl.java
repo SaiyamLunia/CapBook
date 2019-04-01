@@ -16,14 +16,23 @@ public class SearchServiceImpl implements SearchService{
 	public List<UserProfile> getUserProfile(String username) {
 		List<UserProfile> userList = new ArrayList<UserProfile>();
 		List<UserProfile> userProfiles=getAllUserNames();
+//		for (UserProfile userProfile : userProfiles) {
+//			System.out.println("\n\n"+userProfile.toString());
+//		}
 		String[] parts=username.split(" ");
 		String firstName=parts[0];
 		String lastName=parts[1];
 		for (UserProfile userProfile : userProfiles) {
+//			System.out.println(userProfile.getFirstName());
+//			System.out.println(userProfile.getLastName());
 			if(userProfile.getFirstName().equalsIgnoreCase(firstName))
 				if(userProfile.getLastName().equalsIgnoreCase(lastName))
 					userList.add(userProfile);
 		}
+//		for (UserProfile userProfile : userList) {
+//			System.out.println("***************************************third");
+//			System.out.println("\n\n"+userProfile.toString());
+//		}
 		return userList;
 	}
 

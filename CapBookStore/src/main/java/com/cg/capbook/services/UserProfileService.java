@@ -11,4 +11,5 @@ public interface UserProfileService {
 	public UserProfile getUserDetails(String emailId)throws InvalidEmailException;
 	public UserProfile editUser(UserProfile user,String firstName,String lastName,String dob,String city,String state,String country,int zipCode)throws InvalidEmailException;
 	public String decryptPassword(String password);
+	public void update(UserProfile user, String newPassword);
 }

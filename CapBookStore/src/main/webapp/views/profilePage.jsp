@@ -185,7 +185,7 @@
 	<div class="profilepicx">
 		<c:forEach var="img" items="${user.images}">
 					<c:if test="${img.albumName=='profilePic'}">
-					<img  src="${img.imageUrl}" style="height:150px;width:150px">
+					<img  src="${img.imageUrl}" style="height:130px;width:130px">
 				</c:if>
 				</c:forEach>
 	</div>
@@ -262,18 +262,23 @@
 	<div class="postp">
 
 		<div id="column-1" class="postp">
-			update status | add photos/videos | create photo album
+			update status | add photos | create photo album
 			<hr>
 			<br> <br> <br> <br> <br> <br>
 			<hr>
 		</div>
-		<div id="postpos" class="postp">
-			<input type="submit" id="buttonpost" value="post" />
-		</div>
+		
+		<div>
+		<form action="uploadStatus" method="post">
 		<div id="postboxpos" class="postp">
-			<textarea placeholder="What's in your mind" id="postbox" type="text"></textarea>
+			<textarea placeholder="What's in your mind" id="postbox" name="postBody"></textarea>
 		</div>
+		 <div id="postpos" class="postp">
+			<input type="submit" id="buttonpost" value="post">
+		</div> 
+		</form>
 	</div>
+	
 	<div class="postpx"></div>
 	</div>
 	<div class="post1px"></div>

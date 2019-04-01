@@ -563,13 +563,9 @@ height:30px;}
 
 outline:none;
 
-
-
 border:white;
 
 background:#e9f0f2;
-
-
 
 width:580px;}
 
@@ -651,7 +647,7 @@ width:600px;
 
 height:210px;
 
-display:none;
+
 
 
 
@@ -668,10 +664,6 @@ width:600px;
 height:210px;
 
 -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-
-
-
-display:none;
 
 }
 

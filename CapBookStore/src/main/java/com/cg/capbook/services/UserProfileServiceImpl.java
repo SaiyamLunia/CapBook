@@ -76,4 +76,15 @@ public class UserProfileServiceImpl implements UserProfileService{
 		}
 		return password1;
 	}
+	@Override
+	public void update(UserProfile user,String newPassword) {
+		String passwordCheck="";
+		for(int i=0;i<newPassword.length();i++)
+		{
+			passwordCheck+=""+(char)(newPassword.charAt(i)+2);
+			passwordCheck+=""+(char)(newPassword.charAt(i)+4);
+		}
+		user.setPassword(passwordCheck);
+		userProfileDao.save(user);
+	}
 }
