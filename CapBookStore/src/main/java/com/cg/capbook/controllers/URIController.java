@@ -4,11 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.cg.capbook.beans.UserProfile;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user","post"})
 public class URIController {
 
 	private UserProfile user;
@@ -22,10 +23,7 @@ public class URIController {
 	public String getForgotPasswordPage() {
 		return "forgotPasswordPage";
 	}
-//	@RequestMapping("/profileEdit")
-//	public String getProfilePage() {
-//		return "profilePage";
-//	}
+
 	@RequestMapping("/profileEditPage")
 	public String getProfileEditPage() {
 		return "profileEditPage";
@@ -33,6 +31,15 @@ public class URIController {
 	@RequestMapping("/changePasswordPage")
 	public String getChangePasswordPage() {
 		return "changePasswordPage";
+	}
+	@RequestMapping("/profilePage")
+	public String getProfilePage() {
+		return "profilePage";
+	}
+	@RequestMapping("/logout")
+	public String getlogoutPage(SessionStatus status) {
+		status.setComplete();
+		return "registration";
 	}
 	@ModelAttribute("user")
 	public UserProfile getUser() {

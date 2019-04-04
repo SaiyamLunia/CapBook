@@ -14,7 +14,7 @@ public class Image {
 	private String albumName;
 	@ManyToOne
 	private UserProfile user;
-	
+
 	public Image() {}
 	public Image(String imageUrl, String albumName, UserProfile user) {
 		super();
@@ -89,5 +89,4 @@ public class Image {
 		return "Image [imageId=" + imageId + ", imageUrl=" + imageUrl + ", albumName=" + albumName 
 				+ "]";
 	}
-	
 }

@@ -563,9 +563,13 @@ height:30px;}
 
 outline:none;
 
+
+
 border:white;
 
 background:#e9f0f2;
+
+
 
 width:580px;}
 
@@ -647,7 +651,7 @@ width:600px;
 
 height:210px;
 
-
+display:none;
 
 
 
@@ -664,6 +668,10 @@ width:600px;
 height:210px;
 
 -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+
+
+
+display:none;
 
 }
 
@@ -1988,16 +1996,11 @@ position:absolute;
 .phpad{left:100px;
 
 top:440px;
-
-background:white;
-
 height:360px;
 
 width:850px;
 
 position:absolute;
-
-display:none;
 
 }
 
@@ -2136,8 +2139,6 @@ font-size:16px;
 font-family:verdana;
 
 cursor:pointer;
-
-
 
 color:#868383;}
 
@@ -2411,8 +2412,6 @@ display:none;
 
 }
 
-
-
 .error2{height:20px;
 
 width:140px;
@@ -2633,10 +2632,6 @@ left:1130px;
 
 }
 
-
-
-
-
 .error6{height:20px;
 
 width:140px;
@@ -2664,9 +2659,6 @@ left:1130px;
 -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 
 }
-
-
-
 .error7{height:20px;
 
 width:350px;

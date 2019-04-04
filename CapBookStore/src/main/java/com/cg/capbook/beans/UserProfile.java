@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -18,6 +19,7 @@ public class UserProfile {
 	private String dob;
 	private String securityQues;
 	private String securityAnswer;
+	private String profilePic;
 	@Embedded
 	private Address address;
 	@OneToMany(mappedBy="user")
@@ -27,7 +29,7 @@ public class UserProfile {
 	@MapKey
 	private List<Chat>chats;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@MapKey
 	private List<Status>posts;
 	
@@ -64,6 +66,40 @@ public class UserProfile {
 		this.address = address;
 	}
 
+	public UserProfile(String emailId, String password, String firstName, String lastName, String gender, String dob,
+			String securityQues, String securityAnswer, String profilePic, Address address, List<Image> images) {
+		super();
+		this.emailId = emailId;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dob = dob;
+		this.securityQues = securityQues;
+		this.securityAnswer = securityAnswer;
+		this.profilePic = profilePic;
+		this.address = address;
+		this.images = images;
+	}
+
+	public UserProfile(String emailId, String password, String firstName, String lastName, String gender, String dob,
+			String securityQues, String securityAnswer, String profilePic, Address address, List<Image> images,
+			List<Status> posts) {
+		super();
+		this.emailId = emailId;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dob = dob;
+		this.securityQues = securityQues;
+		this.securityAnswer = securityAnswer;
+		this.profilePic = profilePic;
+		this.address = address;
+		this.images = images;
+		this.posts = posts;
+	}
+
 	public String getEmailId() {
 		return emailId;
 	}
@@ -72,6 +108,14 @@ public class UserProfile {
 		this.emailId = emailId;
 	}
 	
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
 
 	public String getPassword() {
 		return password;

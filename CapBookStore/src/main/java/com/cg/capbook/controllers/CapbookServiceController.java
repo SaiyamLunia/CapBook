@@ -1,9 +1,5 @@
 package com.cg.capbook.controllers;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cg.capbook.beans.Image;
 import com.cg.capbook.beans.Status;
 import com.cg.capbook.beans.UserProfile;
-import com.cg.capbook.exceptions.InvalidEmailException;
+import com.cg.capbook.exceptions.EmailAlreadyExistException;
+import com.cg.capbook.exceptions.EmailNotPresentException;
 import com.cg.capbook.exceptions.InvalidPasswordException;
+import com.cg.capbook.exceptions.PasswordNotMatchException;
 import com.cg.capbook.exceptions.WrongSecurityAnswerException;
 import com.cg.capbook.services.ImageService;
 import com.cg.capbook.services.SearchService;
@@ -27,7 +25,8 @@ import com.cg.capbook.services.StatusService;
 import com.cg.capbook.services.UserProfileService;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user"})
+
 public class CapbookServiceController {
 	private UserProfile user;
 	private Status status;
@@ -41,24 +40,24 @@ public class CapbookServiceController {
 	private StatusService statusService;
 	
 	@RequestMapping("/registrationForm")
-	public ModelAndView registerUser(@ModelAttribute UserProfile user) {
+	public ModelAndView registerUser(@ModelAttribute UserProfile user) throws EmailAlreadyExistException, EmailNotPresentException {
 		user=userProfileService.registerUser(user);
 		return new ModelAndView("profilePage","user",user);
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView loginUser(@RequestParam String emailId, @RequestParam String password, HttpSession session) throws InvalidEmailException, InvalidPasswordException {
+	public ModelAndView loginUser(@RequestParam String emailId, @RequestParam String password, @SessionAttribute("user") UserProfile user) throws EmailNotPresentException, InvalidPasswordException {
 		user=userProfileService.loginUser(emailId, password);
 		return new ModelAndView("profilePage","user",user);
 	}
 	
 	@RequestMapping("/forgotPasswordSecurity")
-	public ModelAndView forgotPasswordSecurityQues(@RequestParam String emailId) throws InvalidEmailException {
+	public ModelAndView forgotPasswordSecurityQues(@RequestParam String emailId) throws EmailNotPresentException {
 		user=userProfileService.getUserDetails(emailId);
 		return new ModelAndView("forgotPasswordPage","user",user);
 	}
 	@RequestMapping("/forgotPassword")
-	public ModelAndView forgotPassword(@RequestParam String securityAnswer,@RequestParam String emailId) throws InvalidEmailException, WrongSecurityAnswerException {
+	public ModelAndView forgotPassword(@RequestParam String securityAnswer,@RequestParam String emailId) throws EmailNotPresentException, WrongSecurityAnswerException {
 		user=userProfileService.getUserDetails(emailId);
 		String answer=user.getSecurityAnswer();
 		if(answer.equals(securityAnswer))
@@ -77,11 +76,8 @@ public class CapbookServiceController {
 		return new ModelAndView("searchUserListPage","userList",userList);
 	}
 	@RequestMapping("/profileEdit")
-	public ModelAndView editUser(@RequestParam("file") MultipartFile file,@RequestParam String firstName,@RequestParam String lastName,@RequestParam String dob,@RequestParam String city,@RequestParam String state,@RequestParam String country,@RequestParam int zipCode,@SessionAttribute("user") UserProfile user) throws InvalidEmailException, InvalidPasswordException {
-		Image image=imageService.addImage(file, user);
-		List<Image>images=new ArrayList<>();
-		user.setImages(images);
-		user=userProfileService.editUser(user,firstName,lastName,dob,city,state,country,zipCode);
+	public ModelAndView editUser(@RequestParam("file") MultipartFile file,@RequestParam String firstName,@RequestParam String lastName,@RequestParam String dob,@RequestParam String city,@RequestParam String state,@RequestParam String country,@RequestParam int zipCode,@SessionAttribute("user") UserProfile user) throws EmailNotPresentException, InvalidPasswordException {
+		user=userProfileService.editUser(file,user,firstName,lastName,dob,city,state,country,zipCode);
 		return new ModelAndView("profilePage","user",user);
 	}
 	@RequestMapping("/changePassword")
@@ -96,22 +92,30 @@ public class CapbookServiceController {
 				userProfileService.update(user,newPassword);
 				return new ModelAndView("profilePage");
 			}
+			else throw new PasswordNotMatchException("New Password and Confirm Password Did not Match");
 		}
-		else {
-			return new ModelAndView("forgotPasswordPage","user",user);
-		}
-		return null;
+		else throw new PasswordNotMatchException("Password is incorrect");
 	}
 	@RequestMapping("/uploadStatus")
-	public ModelAndView uploadStatus(@RequestParam String postBody, @SessionAttribute("user") UserProfile user) throws InvalidEmailException {
+	public ModelAndView uploadStatus(@RequestParam String postBody, MultipartFile file,@SessionAttribute("user") UserProfile user) throws EmailNotPresentException {
 		Status status=new Status();
-		status.setUser(user);
+//		status.setUser(user);
 		status.setPostBody(postBody);
-		status=statusService.saveStatus(status,user);
+		status=statusService.saveStatus(status,user,file);
 		List<Status> userStatus=user.getPosts();
 		userStatus.add(status);
-		user.setPosts(userStatus);		
-		return new ModelAndView("profilePage","user",user);
+		user.setPosts(userStatus);	
+		//List<Status>statuses=statusService.getAllStatus();
+		
+		Image image=imageService.addImage(file, user);
+		return new ModelAndView("profilePage","image",image);
+	}
+	
+	@RequestMapping("/showStatus")
+	public ModelAndView showStatus(@SessionAttribute("user") UserProfile user) throws EmailNotPresentException {
+			
+		List<Status>statuses=statusService.getAllStatus();
+		return new ModelAndView("profilePage","status",statuses);
 	}
 }
 

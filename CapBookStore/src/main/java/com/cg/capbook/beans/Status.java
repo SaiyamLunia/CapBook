@@ -14,12 +14,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Status {
+public class Status implements Comparable<Status> {
 	@Id
 	@GeneratedValue
 	private int postId;
 	private String postBody;
+	private String postImage;
 
+	
 	@ManyToOne
 	private UserProfile user;
 	
@@ -42,8 +44,26 @@ public class Status {
 		this.likes = likes;
 		this.comments = comments;
 	}
-
+	public Status(int postId, String postBody, String postImage, UserProfile user, List<Likes> likes,
+			List<Comments> comments) {
+		super();
+		this.postId = postId;
+		this.postBody = postBody;
+		this.postImage = postImage;
+		this.user = user;
+		this.likes = likes;
+		this.comments = comments;
+	}
 	
+	
+	public Status(String postBody, String postImage, UserProfile user, List<Likes> likes, List<Comments> comments) {
+		super();
+		this.postBody = postBody;
+		this.postImage = postImage;
+		this.user = user;
+		this.likes = likes;
+		this.comments = comments;
+	}
 	public int getPostId() {
 		return postId;
 	}
@@ -83,9 +103,21 @@ public class Status {
 	public void setComments(List<Comments> comments) {
 		this.comments = comments;
 	}
+	public String getPostImage() {
+		return postImage;
+	}
+	public void setPostImage(String postImage) {
+		this.postImage = postImage;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Status [postId=" + postId + ", postBody=" + postBody + ", user=" + user + ", likes=" + likes
 				+ ", comments=" + comments + "]";
+	}
+	@Override
+	public int compareTo(Status p) {
+		return this.postId - p.getPostId();
 	}
 }

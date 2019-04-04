@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService{
 	
 	@Override
 	public Image addImage(MultipartFile file, UserProfile user) {
-	   
+	   Image image=new Image();
 	    try {
 	    	System.out.println("try strt");
             // Get the file and save it somewhere
@@ -32,14 +32,14 @@ public class ImageServiceImpl implements ImageService{
             Files.write(path, bytes);
             System.out.println("Email---"+user.getEmailId());
             String imageUrl=""+"resources\\images\\"+file.getOriginalFilename();
-           Image  image= new Image(imageUrl,"profilePic", user);
+             image= new Image(imageUrl,"default", user);
              System.out.println("Image");
-            imageDao.save(image);
+            image=imageDao.save(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-			return null;
+			return image ;
 	}
 
 	@Override
